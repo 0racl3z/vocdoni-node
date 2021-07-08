@@ -6,7 +6,7 @@ import (
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/common"
-	ethtoken "github.com/vocdoni/storage-proofs-eth-go/token"
+	sphelpers "github.com/vocdoni/storage-proofs-eth-go/helpers"
 	"go.vocdoni.io/dvote/crypto/ethereum"
 	"go.vocdoni.io/dvote/crypto/nacl"
 	"go.vocdoni.io/dvote/log"
@@ -260,7 +260,7 @@ func VoteTxCheck(vtx *models.Tx, txBytes, signature []byte, state *State,
 			if process.EthIndexSlot == nil {
 				return nil, fmt.Errorf("index slot not found for process %x", process.ProcessId)
 			}
-			slot, err := ethtoken.GetSlot(addr.Hex(), int(*process.EthIndexSlot))
+			slot, err := sphelpers.GetMapSlot(addr.Hex(), int(*process.EthIndexSlot))
 			if err != nil {
 				return nil, fmt.Errorf("cannot fetch slot: %w", err)
 			}
